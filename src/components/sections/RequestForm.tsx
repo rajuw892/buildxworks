@@ -69,6 +69,8 @@ function RequestFormModal() {
   const { isOpen, closeForm } = useRequestForm();
   const prefersReduced = useReducedMotion();
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -79,10 +81,31 @@ function RequestFormModal() {
     description: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would send the data to your backend/email service
-    setSubmitted(true);
+    if (submitting) return;
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+      };
+      if (!res.ok || !data.ok) {
+        setError(data.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+      setSubmitted(true);
+    } catch {
+      setError("Network error. Please try again or email us directly.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleClose = () => {
@@ -90,6 +113,8 @@ function RequestFormModal() {
     // Reset after animation completes
     setTimeout(() => {
       setSubmitted(false);
+      setError(null);
+      setSubmitting(false);
       setFormData({
         name: "",
         email: "",
@@ -299,14 +324,32 @@ function RequestFormModal() {
                       />
                     </div>
 
+                    {/* Error */}
+                    {error && (
+                      <div
+                        role="alert"
+                        className="rounded-xl border border-red-500/30 bg-red-500/5 px-4 py-3 text-xs text-red-200"
+                      >
+                        {error}
+                      </div>
+                    )}
+
                     {/* Submit */}
-                    <GlowButton className="w-full">
-                      Submit Your Request
+                    <GlowButton className="w-full" disabled={submitting}>
+                      {submitting ? "Sending…" : "Submit Your Request"}
                       <Send className="h-4 w-4" />
                     </GlowButton>
 
                     <p className="text-center text-[11px] text-white/20">
                       We review every request personally. No spam, no auto-replies.
+                      Or email{" "}
+                      <a
+                        href="mailto:raju.raman@ourworldenergy.com"
+                        className="text-white/40 underline-offset-2 hover:text-white/70 hover:underline"
+                      >
+                        raju.raman@ourworldenergy.com
+                      </a>{" "}
+                      directly.
                     </p>
                   </form>
                 </>

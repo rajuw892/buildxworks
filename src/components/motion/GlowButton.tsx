@@ -10,6 +10,8 @@ interface GlowButtonProps {
   variant?: "primary" | "secondary";
   onClick?: () => void;
   href?: string;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }
 
 export function GlowButton({
@@ -18,11 +20,17 @@ export function GlowButton({
   variant = "primary",
   onClick,
   href,
+  disabled,
+  type,
 }: GlowButtonProps) {
   const prefersReduced = useReducedMotion();
 
   const baseStyles =
-    "group relative inline-flex items-center justify-center rounded-xl px-7 py-3.5 text-sm font-semibold transition-all duration-500 cursor-pointer overflow-hidden";
+    "group relative inline-flex items-center justify-center rounded-xl px-7 py-3.5 text-sm font-semibold transition-all duration-500 overflow-hidden";
+
+  const stateStyles = disabled
+    ? "cursor-not-allowed opacity-60"
+    : "cursor-pointer";
 
   const variants = {
     primary:
@@ -36,10 +44,13 @@ export function GlowButton({
   return (
     <Component
       href={href}
-      onClick={onClick}
-      className={cn(baseStyles, variants[variant], className)}
-      whileHover={prefersReduced ? {} : { scale: 1.04, y: -1 }}
-      whileTap={prefersReduced ? {} : { scale: 0.97 }}
+      onClick={disabled ? undefined : onClick}
+      disabled={href ? undefined : disabled}
+      type={href ? undefined : type}
+      aria-disabled={disabled || undefined}
+      className={cn(baseStyles, stateStyles, variants[variant], className)}
+      whileHover={disabled || prefersReduced ? {} : { scale: 1.04, y: -1 }}
+      whileTap={disabled || prefersReduced ? {} : { scale: 0.97 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {/* Glow pulse behind primary */}

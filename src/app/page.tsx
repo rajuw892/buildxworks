@@ -5,8 +5,8 @@ import { HumanAI } from "@/components/sections/HumanAI";
 import { Services } from "@/components/sections/Services";
 import { FeaturedWork } from "@/components/sections/FeaturedWork";
 import { Process } from "@/components/sections/Process";
-import { Pricing } from "@/components/sections/Pricing";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { Founder } from "@/components/sections/Founder";
 import { FAQ } from "@/components/sections/FAQ";
 import { FinalCTA } from "@/components/sections/FinalCTA";
 import { Footer } from "@/components/sections/Footer";
@@ -21,8 +21,8 @@ export default function Home() {
       <Services />
       <FeaturedWork />
       <Process />
-      <Pricing />
       <Testimonials />
+      <Founder />
       <FAQ />
       <FinalCTA />
       <Footer />

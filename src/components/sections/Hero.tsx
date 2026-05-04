@@ -8,10 +8,10 @@ import { useRequestForm } from "@/components/sections/RequestForm";
 import { staggerContainer, fadeUp } from "@/lib/motion-config";
 
 const trustItems = [
-  { icon: Sparkles, label: "AI-Powered Workflow" },
-  { icon: Zap, label: "Fast Delivery" },
-  { icon: Star, label: "Premium Quality" },
-  { icon: Target, label: "Startup-Focused" },
+  { icon: Sparkles, label: "End-to-end builds" },
+  { icon: Zap, label: "Auth + Payments + AI" },
+  { icon: Star, label: "Three live products" },
+  { icon: Target, label: "Founder direct" },
 ];
 
 // Floating UI card with 3D perspective tilt on hover
@@ -164,7 +164,7 @@ export function Hero() {
             <motion.div variants={fadeUp} className="mb-6">
               <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand/5 px-4 py-1.5 text-xs font-medium text-brand-light">
                 <Sparkles className="h-3 w-3" />
-                AI-Accelerated Product Studio
+                Solo founder studio · AI-accelerated
               </span>
             </motion.div>
 
@@ -173,9 +173,9 @@ export function Hero() {
               variants={fadeUp}
               className="text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl"
             >
-              Premium Websites, Apps & SaaS Products —{" "}
+              Idea to live product.{" "}
               <span className="bg-gradient-to-r from-brand-light via-brand-accent to-brand-violet bg-clip-text text-transparent">
-                Built Faster with AI
+                In weeks.
               </span>
             </motion.h1>
 
@@ -184,9 +184,9 @@ export function Hero() {
               variants={fadeUp}
               className="mt-6 max-w-lg text-base leading-relaxed text-white/50 sm:text-lg"
             >
-              We partner with ambitious founders to turn ideas into reality — premium
-              websites, apps, and SaaS products built at 10x speed with AI-powered
-              workflows, production-grade quality, and engineering that lasts.
+              End-to-end product builds for founders — websites, apps, and SaaS.
+              Three production products live, serving 3,000+ users. Auth, payments,
+              AI, and dashboards included. You bring the idea, we ship it.
             </motion.p>
 
             {/* CTAs */}
@@ -286,27 +286,27 @@ export function Hero() {
               <FloatingCard className="top-0 right-0 w-52 animate-float-delayed" delay={0.2}>
                 <div className="flex items-center gap-2 mb-3">
                   <Clock className="h-3.5 w-3.5 text-brand-light/60" />
-                  <div className="text-[10px] text-white/40">Avg. Delivery Time</div>
+                  <div className="text-[10px] text-white/40">Build cadence</div>
                 </div>
-                <div className="text-3xl font-bold text-white">3.2<span className="text-lg text-white/40 font-normal ml-1">wks</span></div>
+                <div className="text-3xl font-bold text-white">Weeks<span className="text-lg text-white/40 font-normal ml-1">not months</span></div>
                 <div className="flex items-center gap-1.5 mt-2">
                   <TrendingUp className="h-3 w-3 text-emerald-400" />
-                  <span className="text-[10px] text-emerald-400">10x faster than agencies</span>
+                  <span className="text-[10px] text-emerald-400">AI-accelerated, solo founder</span>
                 </div>
               </FloatingCard>
 
-              {/* Client satisfaction card */}
+              {/* Live products card */}
               <FloatingCard className="bottom-24 left-8 w-56 animate-float-slow" delay={0.4}>
                 <div className="flex items-center gap-2 mb-3">
                   <Users className="h-3.5 w-3.5 text-brand-light/60" />
-                  <div className="text-[10px] text-white/40">Client Outcomes</div>
+                  <div className="text-[10px] text-white/40">Live Products</div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    { value: "98%", label: "Satisfaction" },
-                    { value: "47+", label: "Launches" },
-                    { value: "4.2x", label: "Avg ROI" },
-                    { value: "<24h", label: "Response" },
+                    { value: "3", label: "Shipped" },
+                    { value: "3K+", label: "End users" },
+                    { value: "9.6", label: "NPS" },
+                    { value: "7", label: "AI platforms" },
                   ].map((stat, i) => (
                     <motion.div
                       key={stat.label}

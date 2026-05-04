@@ -5,21 +5,27 @@ import { MotionSection } from "@/components/motion";
 
 const footerLinks = [
   {
-    title: "Product",
+    title: "Studio",
     links: [
       { label: "Services", href: "#services" },
       { label: "Work", href: "#work" },
       { label: "Process", href: "#process" },
-      { label: "Pricing", href: "#pricing" },
+      { label: "FAQ", href: "#faq" },
     ],
   },
   {
-    title: "Company",
+    title: "Live products",
     links: [
-      { label: "FAQ", href: "#faq" },
-      { label: "Contact", href: "#cta" },
+      { label: "AIExposureTool", href: "https://aiexposuretool.com" },
+      { label: "Bondlyfe", href: "https://bondlyfe.com" },
+      { label: "Chalo Folks", href: "https://www.chalofolks.com" },
     ],
   },
+];
+
+const socials = [
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/rajuraman" },
+  { label: "Email", href: "mailto:raju.raman@ourworldenergy.com" },
 ];
 
 export function Footer() {
@@ -46,18 +52,23 @@ export function Footer() {
                   {group.title}
                 </h4>
                 <ul className="space-y-2.5">
-                  {group.links.map((link) => (
-                    <li key={link.label}>
-                      <motion.a
-                        href={link.href}
-                        className="text-sm text-white/30 hover:text-white/60 transition-colors"
-                        whileHover={{ x: 2 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        {link.label}
-                      </motion.a>
-                    </li>
-                  ))}
+                  {group.links.map((link) => {
+                    const external = link.href.startsWith("http");
+                    return (
+                      <li key={link.label}>
+                        <motion.a
+                          href={link.href}
+                          target={external ? "_blank" : undefined}
+                          rel={external ? "noopener noreferrer" : undefined}
+                          className="text-sm text-white/30 hover:text-white/60 transition-colors"
+                          whileHover={{ x: 2 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {link.label}
+                        </motion.a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
@@ -66,17 +77,19 @@ export function Footer() {
           {/* Bottom bar */}
           <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-surface-border pt-8 md:flex-row">
             <p className="text-xs text-white/20">
-              &copy; {new Date().getFullYear()} BuildXWorks. All rights reserved.
+              &copy; {new Date().getFullYear()} BuildXWorks. Built solo by Raju Raman.
             </p>
             <div className="flex gap-6">
-              {["Twitter", "LinkedIn", "GitHub"].map((social) => (
+              {socials.map((social) => (
                 <motion.a
-                  key={social}
-                  href="#"
-                  className="text-xs text-white/20 hover:text-white/40 transition-colors"
+                  key={social.label}
+                  href={social.href}
+                  target={social.href.startsWith("http") ? "_blank" : undefined}
+                  rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="text-xs text-white/30 hover:text-white/60 transition-colors"
                   whileHover={{ y: -1 }}
                 >
-                  {social}
+                  {social.label}
                 </motion.a>
               ))}
             </div>
