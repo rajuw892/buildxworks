@@ -33,6 +33,7 @@ export function AnimatedCounter({
 
     let startTime: number;
     let animationFrame: number;
+    const isInt = Number.isInteger(target);
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -40,7 +41,8 @@ export function AnimatedCounter({
 
       // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.floor(eased * target));
+      const next = eased * target;
+      setCount(isInt ? Math.floor(next) : Math.round(next * 10) / 10);
 
       if (progress < 1) {
         animationFrame = requestAnimationFrame(animate);
@@ -51,6 +53,10 @@ export function AnimatedCounter({
     return () => cancelAnimationFrame(animationFrame);
   }, [isInView, target, duration, prefersReduced]);
 
+  const display = Number.isInteger(target)
+    ? count.toLocaleString()
+    : count.toFixed(1);
+
   return (
     <motion.span
       ref={ref}
@@ -60,7 +66,7 @@ export function AnimatedCounter({
       transition={{ duration: 0.5 }}
     >
       {prefix}
-      {count}
+      {display}
       {suffix}
     </motion.span>
   );

@@ -2,33 +2,39 @@
 
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Quote, ArrowUpRight } from "lucide-react";
 import { MotionSection } from "@/components/motion";
 
 const testimonials = [
   {
     quote:
-      "BuildX took our rough product idea and turned it into a polished SaaS platform in 5 weeks. The quality of the design and code was genuinely impressive — it felt like working with a senior in-house team.",
-    name: "Sarah Chen",
-    role: "Co-founder, NovaPay",
-    initials: "SC",
-    metric: "5 weeks to launch",
+      "Anima made India feel like home. Her stories brought every temple and street to life.",
+    name: "Sarah Jenkins",
+    role: "Verified Traveler",
+    project: "Chalo Folks",
+    projectUrl: "https://www.chalofolks.com",
+    initials: "SJ",
+    metric: "9.6/10 NPS",
   },
   {
     quote:
-      "We had tried two agencies before finding BuildX. The difference was night and day. They actually understood our product, moved fast, and delivered something that our investors immediately noticed. Highly recommend.",
-    name: "Marcus Williams",
-    role: "CEO, HealthSync",
-    initials: "MW",
-    metric: "Impressed investors",
+      "Score improved 35 → 72 in two weeks. The fix list was clear and shipped immediate impact.",
+    name: "Matthew R.",
+    role: "Founder, Revisionary",
+    project: "AIExposureTool",
+    projectUrl: "https://aiexposuretool.com",
+    initials: "MR",
+    metric: "+37 points in 2 wks",
   },
   {
     quote:
-      "The AI-powered workflow they use is legit. What would have taken months was done in weeks. They handled everything — design, frontend, backend, deployment. We just focused on our business.",
-    name: "Priya Sharma",
-    role: "Founder, Axiom AI",
-    initials: "PS",
-    metric: "Months saved",
+      "Fixed 12 visibility issues in two hours and white-labeled it for our agency clients on day one.",
+    name: "Cynthia M.",
+    role: "Agency Director, MediaTrenz",
+    project: "AIExposureTool",
+    projectUrl: "https://aiexposuretool.com",
+    initials: "CM",
+    metric: "12 fixes / 2 hrs",
   },
 ];
 
@@ -45,7 +51,6 @@ export function Testimonials() {
     []
   );
 
-  // Auto-rotate
   useEffect(() => {
     const interval = setInterval(next, 6000);
     return () => clearInterval(interval);
@@ -55,23 +60,24 @@ export function Testimonials() {
 
   return (
     <section className="relative py-28 overflow-hidden">
-      {/* Background */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brand-violet/[0.03] blur-[150px] pointer-events-none" />
 
       <div className="relative mx-auto max-w-4xl px-6">
         <MotionSection className="text-center mb-16">
           <p className="text-sm font-medium uppercase tracking-wider text-brand-light mb-3">
-            Testimonials
+            What users say
           </p>
           <h2 className="text-3xl font-bold text-white sm:text-4xl">
-            Founders Love Working With Us
+            Real feedback from the live products
           </h2>
+          <p className="mx-auto mt-4 max-w-xl text-sm text-white/40">
+            Every quote below is published on the actual product website. Click the
+            project name to verify.
+          </p>
         </MotionSection>
 
-        {/* Testimonial card */}
         <MotionSection>
           <div className="relative rounded-2xl border border-surface-border bg-surface-raised/80 backdrop-blur-sm p-8 md:p-12">
-            {/* Quote icon */}
             <div className="absolute top-6 right-6 md:top-8 md:right-8">
               <Quote className="h-8 w-8 text-brand/10" />
             </div>
@@ -84,7 +90,6 @@ export function Testimonials() {
                 exit={prefersReduced ? {} : { opacity: 0, y: -15 }}
                 transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
               >
-                {/* Stars */}
                 <div className="flex gap-1 mb-6">
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
@@ -94,13 +99,11 @@ export function Testimonials() {
                   ))}
                 </div>
 
-                {/* Quote text */}
-                <p className="text-lg leading-relaxed text-white/60 md:text-xl md:leading-relaxed">
+                <p className="text-lg leading-relaxed text-white/70 md:text-xl md:leading-relaxed">
                   &ldquo;{t.quote}&rdquo;
                 </p>
 
-                {/* Author */}
-                <div className="mt-8 flex items-center justify-between">
+                <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
                     <div className="flex h-12 w-12 items-center justify-center rounded-full bg-brand/10 text-sm font-semibold text-brand-light border border-brand/10">
                       {t.initials}
@@ -110,9 +113,18 @@ export function Testimonials() {
                         {t.name}
                       </div>
                       <div className="text-xs text-white/40">{t.role}</div>
+                      <a
+                        href={t.projectUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-0.5 inline-flex items-center gap-1 text-[11px] text-brand-light/70 hover:text-brand-light transition-colors group"
+                      >
+                        on {t.project}
+                        <ArrowUpRight className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </a>
                     </div>
                   </div>
-                  <div className="hidden sm:block">
+                  <div>
                     <span className="inline-flex items-center gap-1.5 rounded-full bg-brand/5 border border-brand/10 px-3 py-1.5 text-xs text-brand-light">
                       {t.metric}
                     </span>
@@ -121,7 +133,6 @@ export function Testimonials() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Navigation */}
             <div className="mt-8 flex items-center justify-between border-t border-surface-border pt-6">
               <div className="flex gap-2">
                 {testimonials.map((_, i) => (
