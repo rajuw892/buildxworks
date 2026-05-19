@@ -12,7 +12,7 @@ const stats = [
 ];
 
 export function Founder() {
-  const [photoFailed, setPhotoFailed] = useState(false);
+  const [photoLoaded, setPhotoLoaded] = useState(false);
 
   return (
     <section className="relative py-24 overflow-hidden">
@@ -33,19 +33,22 @@ export function Founder() {
               >
                 <div className="absolute -inset-2 rounded-full bg-gradient-to-br from-brand via-brand-violet to-pink-500 opacity-30 blur-xl" />
                 <div className="relative h-32 w-32 rounded-full overflow-hidden border border-surface-border-light bg-gradient-to-br from-brand to-brand-violet">
-                  {photoFailed ? (
-                    <div className="flex h-full w-full items-center justify-center text-3xl font-bold text-white">
-                      RR
-                    </div>
-                  ) : (
-                    /* eslint-disable-next-line @next/next/no-img-element */
-                    <img
-                      src="/raju.jpg"
-                      alt="Raju Raman, founder of BuildXWorks"
-                      className="h-full w-full object-cover"
-                      onError={() => setPhotoFailed(true)}
-                    />
-                  )}
+                  {/* Always-visible monogram fallback */}
+                  <div className="absolute inset-0 flex items-center justify-center text-3xl font-bold text-white select-none">
+                    RR
+                  </div>
+                  {/* Photo fades in over the monogram only if it actually loads.
+                      Drop a real photo at public/raju.jpg to enable it. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/raju.jpg"
+                    alt="Raju Raman, founder of BuildXWorks"
+                    onLoad={() => setPhotoLoaded(true)}
+                    aria-hidden={!photoLoaded}
+                    className={`relative h-full w-full object-cover transition-opacity duration-500 ${
+                      photoLoaded ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
                 </div>
               </motion.div>
 
